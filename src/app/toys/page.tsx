@@ -2,6 +2,7 @@
 import FilterOverlay from '@/components/FilterOverlay';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
+import { Toy } from "@/types/toy";
 
 const categories = [
   'All',
@@ -30,14 +31,6 @@ export default function ToysListPage() {
   const [category, setCategory] = useState('All');
   const [sort, setSort] = useState('popularity');
   const [filterOpen, setFilterOpen] = useState(false);
-
-  type Toy = {
-    id: string;
-    name: string;
-    category: string[];
-    price: number;
-    images: string[]; // 👈 multiple images
-  };
 
   const [toys, setToys] = useState<Toy[]>([]);
   const [loading, setLoading] = useState(true);

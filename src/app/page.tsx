@@ -20,7 +20,7 @@ export default function Home() {
           href="/about "
           className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition"
         >
-          connect with us
+          Connect With Us
         </Link>
       </div>
     </main>
