@@ -1,7 +1,7 @@
 "use client";  // Mark this component as a Client Component
 
 import Image from 'next/image';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 export default function AboutPage() {
   const router = useRouter();
