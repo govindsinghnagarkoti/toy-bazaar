@@ -39,7 +39,6 @@ export default function ToysListPage() {
     images: string[]; // 👈 multiple images
   };
 
-  const loadingSkeletons = Array(6).fill(null);
   const [toys, setToys] = useState<Toy[]>([]);
   const [loading, setLoading] = useState(true);
 
