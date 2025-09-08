@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Toy } from "@/types/toy";
 import Link from 'next/link';
+import { Suspense } from 'react';
 
 const categories = [
   'All',
