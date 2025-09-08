@@ -80,7 +80,7 @@ function ToysContent() {
     <>
       {/* Header */}
       <header className="sticky top-0 bg-white shadow-md z-30 flex items-center justify-between px-5 py-4">
-        <h1 className="text-xl font-bold text-indigo-700">Furniture Bazaar</h1>
+        <h1 className="text-xl font-bold text-indigo-700">Toy Bazaar</h1>
         <button
           onClick={() => setFilterOpen(true)}
           aria-label="Open filters"
