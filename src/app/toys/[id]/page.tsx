@@ -1,9 +1,9 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 export const dynamic = "force-dynamic";
 
 type Toy = {
@@ -15,7 +15,7 @@ type Toy = {
 };
 
 export default function ToyDetailPage() {
-
+  const searchParams = useSearchParams();
   const params = useParams();
   const [toy, setToy] = useState<Toy | null>(null);
   const [loading, setLoading] = useState(true);
@@ -112,7 +112,24 @@ export default function ToyDetailPage() {
         <p className="text-amber-600 font-bold text-xl sm:text-2xl mt-1 sm:mt-2">₹{toy.price}</p>
         <p className="text-gray-700 mt-2 sm:mt-4 text-base sm:text-lg leading-relaxed">{toy.description}</p>
 
-        
+          {(() => {
+          
+          const secretParam = searchParams.get("secret");
+          const secretEnv = process.env.NEXT_PUBLIC_EDIT_SECRET as string | undefined;
+          const canEdit = Boolean(secretParam && secretEnv && secretParam === secretEnv);
+          if (!canEdit) return null;
+          return (
+            <div className="mt-4">
+              <Link
+                href={`/toys/${toy.id}/edit`}
+                className="inline-block bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-2 rounded-full text-sm font-medium shadow"
+              >
+                ✏️ Edit
+              </Link>
+            </div>
+          );
+        })()}
+
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-6">
           {toy.images?.map((img, idx) => (
             <button
