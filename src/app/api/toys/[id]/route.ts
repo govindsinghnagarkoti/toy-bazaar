@@ -1,11 +1,13 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import clientPromise from "@/lib/mongodb";
 import { ObjectId, type Document } from "mongodb";
 
 type Params = { params: { id: string } };
 
-export async function GET(request: Request, context: { params: { id: string } }) {
+export async function GET(request: NextRequest, context: { params: Promise<{ id: string }> }) {
   const { params } = context;
+  const { id } = await params; // Await params because it's a Promise
+
   try {
     const client = await clientPromise;
     const dbName = process.env.MONGODB_DB as string;
@@ -16,7 +18,7 @@ export async function GET(request: Request, context: { params: { id: string } })
     const db = client.db(dbName);
     const collection = db.collection("toys");
 
-    const idOrSlug = params.id;
+    const idOrSlug = id;
     let doc: Document | null = null;
     if (ObjectId.isValid(idOrSlug)) {
       doc = await collection.findOne({ _id: new ObjectId(idOrSlug) });
