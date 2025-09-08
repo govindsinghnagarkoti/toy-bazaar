@@ -30,7 +30,9 @@ const categories = [
   'Science & Discovery',
 ];
 
-export default function ToysListPage() {
+// Extract the component that uses useSearchParams into a separate component
+function ToysContent() {
+  const searchParams = useSearchParams();
   const [category, setCategory] = useState('All');
   const [sort, setSort] = useState('popularity');
   const [filterOpen, setFilterOpen] = useState(false);
@@ -39,7 +41,6 @@ export default function ToysListPage() {
   const [loading, setLoading] = useState(true);
 
   const router = useRouter();
-  const searchParams = useSearchParams();
 
   // Sync state from URL on mount and param changes
   useEffect(() => {
@@ -76,8 +77,7 @@ export default function ToysListPage() {
   }, [category, sort]);
 
   return (
-    <Suspense >
-    < main className = "min-h-screen bg-gray-100 font-sans relative" >
+    <>
       {/* Header */}
       <header className="sticky top-0 bg-white shadow-md z-30 flex items-center justify-between px-5 py-4">
         <h1 className="text-xl font-bold text-indigo-700">Furniture Bazaar</h1>
@@ -187,8 +187,46 @@ export default function ToysListPage() {
           </div>
         )}
       </section>
-      </main>
+    </>
+  );
+}
+
+// Loading fallback component
+function LoadingFallback() {
+  return (
+    <main className="min-h-screen bg-gray-100 font-sans relative">
+      <header className="sticky top-0 bg-white shadow-md z-30 flex items-center justify-between px-5 py-4">
+        <h1 className="text-xl font-bold text-indigo-700">Furniture Bazaar</h1>
+        <div className="bg-gray-200 animate-pulse px-4 py-2 rounded-lg">
+          <div className="w-24 h-6 bg-gray-300 rounded"></div>
+        </div>
+      </header>
+      <section className="p-4 mx-auto max-w-2xl sm:max-w-3xl">
+        <div className="grid gap-4 sm:grid-cols-2">
+          {Array(6).fill(null).map((_, idx) => (
+            <div
+              key={idx}
+              className="bg-white rounded-xl shadow-md p-4 mb-6 animate-pulse flex flex-col gap-3"
+            >
+              <div className="bg-gray-300 h-40 rounded-lg w-full" />
+              <div className="h-6 bg-gray-300 rounded w-3/4" />
+              <div className="h-5 bg-gray-300 rounded w-1/3" />
+              <div className="h-10 bg-gray-300 rounded-full mt-auto" />
+            </div>
+          ))}
+        </div>
+      </section>
+    </main>
+  );
+}
+
+export default function ToysListPage() {
+  return (
+    <main className="min-h-screen bg-gray-100 font-sans relative">
+      <Suspense fallback={<LoadingFallback />}>
+        <ToysContent />
       </Suspense>
+    </main>
   );
 }
 
