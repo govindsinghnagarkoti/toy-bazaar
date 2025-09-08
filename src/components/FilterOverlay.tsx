@@ -32,7 +32,7 @@ export default function FilterOverlay({
         aria-modal="true"
         aria-labelledby="filter-title"
       >
-        <h2 id="filter-title" className="text-2xl font-bold mb-6 text-pink-600">
+        <h2 id="filter-title" className="text-2xl font-bold mb-6 text-indigo-700">
           Filters & Sorting
         </h2>
 
@@ -45,7 +45,7 @@ export default function FilterOverlay({
             id="category"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500"
+            className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           >
             {categories.map((cat) => (
               <option key={cat} value={cat}>
@@ -64,7 +64,7 @@ export default function FilterOverlay({
             id="sort"
             value={sort}
             onChange={(e) => setSort(e.target.value)}
-            className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500"
+            className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           >
             <option value="popularity">Popularity</option>
             <option value="price-low">Price: Low to High</option>
@@ -76,7 +76,7 @@ export default function FilterOverlay({
         {/* Close Button */}
         <button
           onClick={() => setFilterOpen(false)}
-          className="w-full bg-pink-600 hover:bg-pink-700 text-white font-semibold py-3 rounded-lg shadow transition"
+          className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg shadow transition"
         >
           Apply Filters
         </button>

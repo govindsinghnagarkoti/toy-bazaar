@@ -4,4 +4,7 @@ export type Toy = {
   category: string[];
   price: number;
   images: string[];
+  popularity?: number;
+  slug?: string;
+  stock: string;
 };
