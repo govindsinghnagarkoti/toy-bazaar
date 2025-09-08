@@ -4,7 +4,8 @@ import { ObjectId, type Document } from "mongodb";
 
 type Params = { params: { id: string } };
 
-export async function GET(_request: Request, { params }: Params) {
+export async function GET(request: Request, context: { params: { id: string } }) {
+  const { params } = context;
   try {
     const client = await clientPromise;
     const dbName = process.env.MONGODB_DB as string;
