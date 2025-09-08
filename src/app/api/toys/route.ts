@@ -16,9 +16,9 @@ export async function GET(request: Request) {
     const category = searchParams.get("category");
     const sortParam = searchParams.get("sort") || "popularity";
 
-    const query: any = {};
+    const query = {};
     if (category && category !== "All") {
-      query.category = category;
+      (query as { category?: string }).category = category;
     }
 
     const sort: Record<string, 1 | -1> = {};
@@ -49,7 +49,7 @@ export async function GET(request: Request) {
       .limit(100)
       .toArray();
 
-    const toys = docs.map((doc: any) => ({
+    const toys = docs.map((doc) => ({
       id: String(doc._id),
       name: doc.name,
       price: typeof doc.price === "number" ? doc.price : Number(doc.price),
