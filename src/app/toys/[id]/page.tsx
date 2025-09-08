@@ -4,7 +4,7 @@
 import { useParams, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 type Toy = {
   id: string;
@@ -82,6 +82,7 @@ export default function ToyDetailPage() {
   }
 
   return (
+    <Suspense>
     <main className="min-h-screen bg-gradient-to-br from-pink-50 via-amber-50 to-indigo-50 p-2 sm:p-6">
       <Link
         href="/toys"
@@ -263,7 +264,9 @@ export default function ToyDetailPage() {
           </div>
         </div>
       )}
-    </main>
+      </main>
+      </Suspense>
+      
   );
 }
 

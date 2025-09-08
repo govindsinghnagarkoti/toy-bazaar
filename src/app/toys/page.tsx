@@ -76,7 +76,8 @@ export default function ToysListPage() {
   }, [category, sort]);
 
   return (
-    <main className="min-h-screen bg-gray-100 font-sans relative">
+    <Suspense >
+    < main className = "min-h-screen bg-gray-100 font-sans relative" >
       {/* Header */}
       <header className="sticky top-0 bg-white shadow-md z-30 flex items-center justify-between px-5 py-4">
         <h1 className="text-xl font-bold text-indigo-700">Furniture Bazaar</h1>
@@ -186,7 +187,8 @@ export default function ToysListPage() {
           </div>
         )}
       </section>
-    </main>
+      </main>
+      </Suspense>
   );
 }
 
