@@ -78,7 +78,10 @@ export async function GET(request: NextRequest, context: { params: Promise<{ id:
   }
 }
 
-export async function PATCH(request: Request, { params }: Params) {
+export async function PATCH(request: NextRequest, context: { params: Promise<{ id: string }> }) {
+  const { params } = context;
+  const { id } = await params;
+
   try {
     const client = await clientPromise;
     const dbName = process.env.MONGODB_DB as string;
@@ -86,7 +89,6 @@ export async function PATCH(request: Request, { params }: Params) {
       return NextResponse.json({ error: "MONGODB_DB is not set" }, { status: 500 });
     }
 
-    const id = params.id;
     if (!ObjectId.isValid(id)) {
       return NextResponse.json({ error: "Invalid id" }, { status: 400 });
     }
@@ -133,14 +135,16 @@ export async function PATCH(request: Request, { params }: Params) {
   }
 }
 
-export async function POST(_request: Request, { params }: Params) {
+export async function POST(request: NextRequest, context: { params: Promise<{ id: string }> }) {
+  const { params } = context;
+  const { id } = await params; // Await the promise for params
   try {
     const client = await clientPromise;
     const dbName = process.env.MONGODB_DB as string;
     if (!dbName) {
       return NextResponse.json({ error: "MONGODB_DB is not set" }, { status: 500 });
     }
-    const id = params.id;
+    
     if (!ObjectId.isValid(id)) {
       return NextResponse.json({ error: "Invalid id" }, { status: 400 });
     }
