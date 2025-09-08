@@ -16,7 +16,6 @@ type Toy = {
 
 export default function ToyDetailPage() {
   const params = useParams();
-  const searchParams = useSearchParams();
   const [toy, setToy] = useState<Toy | null>(null);
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
@@ -114,7 +113,8 @@ export default function ToyDetailPage() {
         <p className="text-amber-600 font-bold text-xl sm:text-2xl mt-1 sm:mt-2">₹{toy.price}</p>
         <p className="text-gray-700 mt-2 sm:mt-4 text-base sm:text-lg leading-relaxed">{toy.description}</p>
 
-        {(() => {
+          {(() => {
+          const searchParams = useSearchParams();
           const secretParam = searchParams.get("secret");
           const secretEnv = process.env.NEXT_PUBLIC_EDIT_SECRET as string | undefined;
           const canEdit = Boolean(secretParam && secretEnv && secretParam === secretEnv);
